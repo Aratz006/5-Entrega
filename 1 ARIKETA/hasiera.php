@@ -49,7 +49,7 @@ $conn = konexioaSortu();
              taulaBirkargatu();
         });
 
-        //setInterval(taulaBirkargatu, 30000);
+        setInterval(taulaBirkargatu, 60000);
 
     });
 
