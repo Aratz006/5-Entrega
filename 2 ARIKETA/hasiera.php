@@ -36,7 +36,7 @@ $conn = konexioaSortu();
         <option value="9">9</option>
         <option value="10">10</option>
     </select>
-    <button type="submit" class="eguneratu">Eguneratu</button>
+    <button type="submit" id="eguneratu">Eguneratu</button>
 </form>
 
 <?php
@@ -82,10 +82,10 @@ $conn->close();
         });
 
 
-        $(".eguneratu").on("click", function (e) {
+        $("#eguneratu").on("click", function (e) {
             e.preventDefault();
             erregistroakEguneratu();
-            //TODO: taulaBirkargatu();
+            //TO DO: taulaBirkargatu();
         });
 
         //setInterval(taulaBirkargatu, 10000);
@@ -98,7 +98,7 @@ $conn->close();
             "url": "eragiketak.php",
             "method": "GET",
             "data": {
-                "akzioa": "lortuPilotoak",
+                "akzioa": "lortuPilotoak"
             }
         })
             .done(function (informazioa) {
@@ -124,31 +124,24 @@ $conn->close();
             });
     }
     function erregistroakEguneratu() {
-
+        var dortsala = $('#dortsala').val();
+        var postua = $('#postua').val();
         $.ajax({
-            "url": "eragiketak.php",
-            "method": "POST",
-            "data": {
-                "akzioa": "eguneratuPilotoak",
+            url: "eragiketak.php",
+            method: "POST",
+            data: {
+                akzioa: "eguneratuPilotoak",
+                dortsala: dortsala,
+                postua: postua
             }
         })
             .done(function (informazioa) {
-
-                var info = JSON.parse(informazioa);
-
-                if (info.kopurua > 0) {
-                    $(".zerrenda").html("");
-                    for (var i = 0; i < info.kopurua; i++) {
-                        $(".zerrenda").append("<tr><td>" + info[i].Postua + " </td><td>" + info[i].Dortsala + "</td><td>" + info[i].Izena + "</td></tr>");
-                    }
-
-                } else {
-                    alert("Ez da elementurik kargatu");
-                }
+                alert("Datuak eguneratu dira");
+                taulaBirkargatu();
 
             })
             .fail(function () {
-                alert("gaizki joan da");
+                alert("Zerbait gaizki joan da");
             })
             .always(function () {
 
