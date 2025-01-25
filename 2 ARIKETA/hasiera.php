@@ -1,3 +1,4 @@
+
 <?php
 
 require_once("db.php");
@@ -5,7 +6,9 @@ require_once("db.php");
 $conn = konexioaSortu();
 
 ?>
-
+<head>
+    <link rel="stylesheet" href="../css.css">
+</head>
 <form method="POST" action="hasiera.php" id="dbEguneratu">
     <label for="dortsala">Dortsala:</label>
     <select name="dortsala" id="dortsala">
@@ -108,7 +111,7 @@ $conn->close();
                 if (info.kopurua > 0) {
                     $(".zerrenda").html("");
                     for (var i = 0; i < info.kopurua; i++) {
-                        $(".zerrenda").append("<tr><td>" + info[i].Postua + " </td><td>" + info[i].Dortsala + "</td><td>" + info[i].Izena + "</td></tr>");
+                        $(".zerrenda").append("<tr class='" + info[i].class + "'><td>" + info[i].Postua + " </td><td>" + info[i].Dortsala + "</td><td>" + info[i].Izena + "</td></tr>");
                     }
 
                 } else {
@@ -117,7 +120,7 @@ $conn->close();
 
             })
             .fail(function () {
-                alert("gaizki joan da");
+                alert("Gaizki joan da");
             })
             .always(function () {
 
@@ -136,7 +139,6 @@ $conn->close();
             }
         })
             .done(function (informazioa) {
-                alert("Datuak eguneratu dira");
                 taulaBirkargatu();
 
             })
