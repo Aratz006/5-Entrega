@@ -19,3 +19,4 @@ function konexioaSortu()
 
     return $conn;
 }
+?>

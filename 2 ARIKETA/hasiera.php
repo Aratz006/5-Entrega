@@ -88,10 +88,9 @@ $conn->close();
         $("#eguneratu").on("click", function (e) {
             e.preventDefault();
             erregistroakEguneratu();
-            //TO DO: taulaBirkargatu();
         });
 
-        //setInterval(taulaBirkargatu, 10000);
+        setInterval(taulaBirkargatu, 60000);
 
     });
 
