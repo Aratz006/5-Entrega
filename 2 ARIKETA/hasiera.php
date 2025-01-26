@@ -81,7 +81,7 @@ $conn->close();
 
 
         $(".birkargatu").on("click", function () {
-            taulaBirkargatu();
+            taulaBirkargatu2();
         });
 
 
@@ -94,13 +94,13 @@ $conn->close();
 
     });
 
-    function taulaBirkargatu() {
+    function taulaBirkargatu1() {
 
         $.ajax({
             "url": "eragiketak.php",
             "method": "GET",
             "data": {
-                "akzioa": "lortuPilotoak"
+                "akzioa": "lortuPilotoak1"
             }
         })
             .done(function (informazioa) {
@@ -148,4 +148,35 @@ $conn->close();
 
             });
     }
+    function taulaBirkargatu2() {
+
+$.ajax({
+    "url": "eragiketak.php",
+    "method": "GET",
+    "data": {
+        "akzioa": "lortuPilotoak2"
+    }
+})
+    .done(function (informazioa) {
+
+        var info = JSON.parse(informazioa);
+
+        if (info.kopurua > 0) {
+            $(".zerrenda").html("");
+            for (var i = 0; i < info.kopurua; i++) {
+                $(".zerrenda").append("<tr class='" + info[i].class + "'><td>" + info[i].Postua + " </td><td>" + info[i].Dortsala + "</td><td>" + info[i].Izena + "</td></tr>");
+            }
+
+        } else {
+            alert("Ez da elementurik kargatu");
+        }
+
+    })
+    .fail(function () {
+        alert("Gaizki joan da");
+    })
+    .always(function () {
+
+    });
+}
 </script>

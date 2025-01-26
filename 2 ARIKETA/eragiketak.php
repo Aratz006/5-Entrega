@@ -2,12 +2,9 @@
 
 require_once("db.php");
 
-if (isset($_GET["akzioa"]) && $_GET["akzioa"] == "lortuPilotoak") {
+if (isset($_GET["akzioa"]) && $_GET["akzioa"] == "lortuPilotoak1") {
 
     $conn = konexioaSortu();
-    
-    $sql2 = "UPDATE pilotoak SET class = '' WHERE Postua>= 1 AND Postua < 11";
-    $result = $conn->query($sql2);
 
     $sql = "SELECT * FROM pilotoak ORDER BY Postua ASC";
     $result = $conn->query($sql);
@@ -67,4 +64,33 @@ if (isset($_GET["akzioa"]) && $_GET["akzioa"] == "lortuPilotoak") {
     }
 
 
+}else if(isset($_GET["akzioa"]) && $_GET["akzioa"] == "lortuPilotoak2") {
+
+    $conn = konexioaSortu();
+    
+    $sql2 = "UPDATE pilotoak SET class = '' WHERE Postua>= 1 AND Postua < 11";
+    $result = $conn->query($sql2);
+
+    $sql = "SELECT * FROM pilotoak ORDER BY Postua ASC";
+    $result = $conn->query($sql);
+    $pilotoak = [];
+
+    if ($result->num_rows > 0) {
+        $counter = 0;
+        while ($row = $result->fetch_assoc()) {
+            $pilotoak[$counter] = ["Izena" => $row["Izena"], "Dortsala" => $row["Dortsala"], "Postua" => $row["Postua"], "class" => $row["class"]];
+            $counter++;
+        }
+
+        $pilotoak["kopurua"] = $counter;
+        echo json_encode($pilotoak);
+        $conn->close();
+        die;
+
+    } else {
+        $pilotoak["kopurua"] = 0;
+        echo json_encode($pilotoak);
+        $conn->close();
+        die;
+    }
 }
